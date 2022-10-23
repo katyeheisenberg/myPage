@@ -6,7 +6,7 @@
     z-index: 99;
     cursor: pointer;
     border: 1px solid #ffffff;
-    
+
     &Right {
         padding-left: 2rem;
         transform: translate(calc(100% - 1.9rem), 0);
@@ -18,7 +18,7 @@
     &Left {
         padding-right: 1.9rem;
         transform: translate(calc(-100% + 1.9rem), 0);
-        bottom: 10%;
+        bottom: 20%;
         left: 0;
         transition: transform 0.3s ease-out;
     }

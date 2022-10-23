@@ -1,6 +1,12 @@
 import React from 'react'
 import cl from "classnames";
-import { GrLinkedin, AiFillGithub, BsTelegram }  from "react-icons/ai";
+
+import { AiFillGithub }  from "react-icons/ai";
+import { BsTelegram } from "react-icons/bs";
+import { GrLinkedin } from "react-icons/gr";
+
+import ScreenEgg from '../ScreenEgg'
+
 import styles from "./index.module.scss";
 
 const socialNetworks = [
@@ -22,19 +28,29 @@ const socialNetworks = [
 ];
 
 const SocialNetwork = ({ className }) => {
-  return <ul className={cl(className, styles.list)}>
-    {socialNetworks.map((network) => {
-      return <li key={network.id} className={styles.listItem}>
-        <a
-        href={network.href}
-        target="_blank"
-        className={styles.listLink}
-        rel="noreferrer" >
-          {React.createElement(network.icon, { color: 'black', size: 50})}
-        </a>
-      </li>
-    })}
-  </ul>;
+  return (
+    <ScreenEgg type="left">
+      <ul className={cl(className, styles.list)}>
+        {socialNetworks.map((network) => {
+          return (
+            <li key={network.id} className={styles.listItem}>
+              <a
+                href={network.href}
+                target="_blank"
+                className={styles.listLink}
+                rel="noreferrer"
+              >
+                {React.createElement(network.icon, {
+                  color: "blue",
+                  size: 50,
+                })}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </ScreenEgg>
+  );
 };
 
 export default SocialNetwork
