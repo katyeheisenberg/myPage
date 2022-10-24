@@ -1,48 +1,88 @@
-import React, { useEffect, useState } from "react";
-import Section from '../components/Section'
-import Cover from '../components/Cover'
-import SocialNetwork from '../components/SocialNetworks';
-import Title from '../components/Title'
-import PostGrid from '../components/PostGrid'
-import BuyMeCoffee from "../components";
-import Post from '../components/Post'
+import { useState } from "react";
+import Head from "next/head";
 
-import { loadPosts } from './api/posts'
+import { loadData } from "./api/post";
+import {
+  Section,
+  Cover,
+  SocialNetworks,
+  BuyMeCoffee,
+  Title,
+  PostGrid,
+  Post,
+  Button,
+} from "../components";
 
-
-const LOAD_MORE = 4
+const LOAD_MORE_STEP = 4;
 
 export default function Home({ initialPosts, total }) {
-  console.log(initialPosts)
-  const [posts, setPosts] = useState(initialPosts)
+  const [posts, setPosts] = useState(initialPosts);
+  const [loadedAmount, setLoadedAmount] = useState(LOAD_MORE_STEP);
+  const [loading, setLoading] = useState(false);
+
+  const showLoadButton = total > loadedAmount;
+
+  const getMorePosts = async () => {
+    setLoading(true);
+
+    try {
+      const data = await fetch(
+        `/api/post?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`
+      ).then((response) => response.json());
+      setLoadedAmount(loadedAmount + LOAD_MORE_STEP);
+      setPosts([...posts, ...data.posts]);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: "1rem",
+      }}
+    >
+      <Head>
+        <title>My page</title>
+      </Head>
       <Section>
-        <Cover title="Kate <br /> Chicherina" />
-        <SocialNetwork />
+        <Cover title="Kate<br />Chicherina" />
+        <SocialNetworks />
         <BuyMeCoffee />
       </Section>
       <Section>
-        <Title>New pt</Title>
+        <Title>Posts</Title>
         <PostGrid>
           {posts.map((post) => (
-            <Post key={post.slug.current} {...post} />
+            <Post key={post._id} {...post} />
           ))}
-          {posts}
         </PostGrid>
+        {showLoadButton && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button disabled={loading} onClick={getMorePosts}>
+              Load more posts...
+            </Button>
+          </div>
+        )}
       </Section>
     </div>
   );
 }
 
+export async function getServerSideProps() {
+  const { posts, total } = await loadData(0, LOAD_MORE_STEP);
 
-export const getServerSideProps = async () => {
-  const { posts, total } = await loadPosts(0, LOAD_MORE);
   return {
     props: {
       initialPosts: posts,
-      total
-    }
-  }
+      total,
+    },
+  };
 }

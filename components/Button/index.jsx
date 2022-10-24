@@ -7,10 +7,19 @@ import styles from "./index.module.scss";
 const Button = (
   {
   className,
+  children,
+  onClick,
+  disabled
 }
 ) => {
   return (
-    <div>Button</div>
+    <button
+    disabled={disabled}
+    onClick={onClick}
+    className={cl(className, styles.button)}
+    >
+      {children}
+    </button>
   )
 }
 

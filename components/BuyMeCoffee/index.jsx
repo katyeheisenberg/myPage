@@ -11,7 +11,7 @@ const BuyMeCoffee = ({ className }) => {
     <ScreenEgg type="right">
       <div className={cl(className, styles.buyCoffee)}>
         <a
-          href="https://blog.logrocket.com/react-icons-comprehensive-tutorial-examples/"
+          href="https://www.tinkoff.ru/rm/chicherina.ekaterina15/jfUoj76329"
           target="__blank"
           className={styles.buyCoffeeButton}
         >

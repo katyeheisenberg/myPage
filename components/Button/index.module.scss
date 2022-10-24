@@ -1,14 +1,14 @@
 .button {
-    background: #FFDE7D;
+    background: rgb(52, 80, 181);
     padding: 0.5em 2em;
     font-size: 1.5rem;
     font-weight: bold;
     transition: all 0.3s;
     cursor: pointer;
-    color: black;
+    color: white;
 
     &:hover {
-        background: #00B8A9;
+        background: #3c6bee;
         color: #ffffff;
     }
 
